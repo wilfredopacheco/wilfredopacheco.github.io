@@ -1,0 +1,29 @@
+
+
+* {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+
+
+}
+#profile {
+    width: 290px;
+    border-width: 50em;
+    /*position: absolute;*/
+    height: 260px;
+}
+.orang{
+    color: #e4763d;
+    background-color: #efeae8;
+}
+.brwn {
+    color: #452c34;
+    background-color: #efeae8;
+}
+.whte {
+
+    background-color: #efeae8;
+}
+.card {
+    box-shadow: 10px 10px 5px grey;
+}
+
