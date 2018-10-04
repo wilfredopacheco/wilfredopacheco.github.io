@@ -1,8 +1,10 @@
 
 
 * {
-    font-family: 'IBM Plex Sans Condensed', sans-serif;
-
+    font-family: 'Zilla Slab', serif;
+}
+#name1 {
+    font-family: 'Zilla Slab Highlight', cursive;
 
 }
 #profile {
@@ -26,4 +28,5 @@
 .card {
     box-shadow: 10px 10px 5px grey;
 }
+
 
