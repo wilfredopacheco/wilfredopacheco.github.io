@@ -1,0 +1,13 @@
+*{
+    font-family: 'Zilla Slab Highlight', cursive;
+    transition: all .5s;
+}
+.prof {
+    box-shadow: 10px 10px 5px grey;
+}
+.unhi {
+    font-family: 'Zilla Slab', serif;
+}
+.card{
+    height: 400px;
+}
