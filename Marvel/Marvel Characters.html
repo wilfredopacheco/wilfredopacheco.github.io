@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab|Zilla+Slab+Highlight" rel="stylesheet">
+    <style>
+    *{
+        font-family: 'Zilla Slab Highlight', cursive;
+        transition: all .5s;
+    }
+    .prof {
+        box-shadow: 10px 10px 5px grey;
+    }
+    .unhi {
+        font-family: 'Zilla Slab', serif;
+    }
+    .card{
+        height: 400px;
+    }
+</style>
+    <title>Marvel Characters</title>
+</head>
+<body class="bg-yellow">
+<header class="p-4">
+    <div class="display-1 pt-4 mb-0">MARVEL<span class="display-4 pt-4 unhi mt-0">Characters</span>
+    </div>
+</header>
+<div class="m-1 p-3" id="display">
+
+</div>
+<!--<footer class="row bg-yellow container text-center mx-auto" id="display2">-->
+<!--</footer>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script>
+    (function () {
+        const publicKey = "fe4d001d953344e520704d034e73c4da";
+        let limit = "&limit=50";
+        let count = 0;
+        let offset = "&offset=" + count;
+        let imageLink;
+        let details = `ts=1&apikey=fe4d001d953344e520704d034e73c4da&hash=9278b5819c79b05b1e8288104e113f32${limit}${offset}`;
+        let reload = $.get({
+            url: `http://gateway.marvel.com/v1/public/characters?${details}`,
+            type: "GET",
+            Params: {
+                "apikey": publicKey,
+                "ts": "ts",
+                "hash": "9278b5819c79b05b1e8288104e113f32"
+            },
+            Headers: {
+                Accept: '*/*'
+            }
+        }).done(function(data) {
+            let copyright = data.attributionHTML;
+            let copyright2 = data.attributionText;
+            offset = data.offset;
+            $(`<span class="container black mt-0 unhi">${copyright2}</span>`).appendTo('header');
+            $(`<div class="container text-center p-4 black">${copyright}</div>`).appendTo('#display2');
+            for (let i = 0; i < data.data.results.length; i++) {
+                imageLink = `${data.data.results[i].thumbnail.path}/standard_fantastic.${data.data.results[i].thumbnail.extension}`;
+                $(`<div class="card p-3 col-4 float-left"><div class="media"><img class="mr-3" src="${imageLink}" alt="Generic placeholder image"><div class="media-body"><h3 class="mt-0">${data.data.results[i].name}</h3><span class="unhi">${data.data.results[i].description}</span></div></div></div>`).appendTo('#display');
+            }
+        });
+        $(window).scroll(function(e) {
+            if($(window).scrollTop() + $(window).height() === $(document).height()) {
+                console.log("bottom!!!!!");
+                count += 50;
+                $('#display').empty();
+                let limit = "&limit=50";
+                let offset = "&offset=" + count;
+                let details = `ts=1&apikey=fe4d001d953344e520704d034e73c4da&hash=9278b5819c79b05b1e8288104e113f32${limit}${offset}`;
+                $.get({
+                    url: `http://gateway.marvel.com/v1/public/characters?${details}`,
+                    type: "GET",
+                    Params: {
+                        "apikey": publicKey,
+                        "ts": "ts",
+                        "hash": "9278b5819c79b05b1e8288104e113f32"
+                    },
+                    Headers: {
+                        Accept: '*/*'
+                    }
+                }).done(function (data) {
+                    for (let i = 0; i < data.data.results.length; i++) {
+                        imageLink = `${data.data.results[i].thumbnail.path}/standard_fantastic.${data.data.results[i].thumbnail.extension}`;
+                        $(`<div class="card p-3 col-4 float-left"><div class="media"><img class="mr-3" src="${imageLink}" alt="Generic placeholder image"><div class="media-body"><h3 class="mt-0">${data.data.results[i].name}</h3><span class="unhi">${data.data.results[i].description}</span></div></div></div>`).appendTo('#display');
+                    }
+                })
+            }});
+    })();
+</script>
+<link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
