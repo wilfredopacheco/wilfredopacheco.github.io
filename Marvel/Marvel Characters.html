@@ -43,7 +43,7 @@
         let imageLink;
         let details = `ts=1&apikey=fe4d001d953344e520704d034e73c4da&hash=9278b5819c79b05b1e8288104e113f32${limit}${offset}`;
         let reload = $.get({
-            url: `http://gateway.marvel.com/v1/public/characters?${details}`,
+            url: `https://gateway.marvel.com/v1/public/characters?${details}`,
             type: "GET",
             Params: {
                 "apikey": publicKey,
@@ -73,7 +73,7 @@
                 let offset = "&offset=" + count;
                 let details = `ts=1&apikey=fe4d001d953344e520704d034e73c4da&hash=9278b5819c79b05b1e8288104e113f32${limit}${offset}`;
                 $.get({
-                    url: `http://gateway.marvel.com/v1/public/characters?${details}`,
+                    url: `https://gateway.marvel.com/v1/public/characters?${details}`,
                     type: "GET",
                     Params: {
                         "apikey": publicKey,
