@@ -28,7 +28,7 @@
     <div class="display-1 pt-4 mb-0">MARVEL<span class="display-4 pt-4 unhi mt-0">Characters</span>
     </div>
 </header>
-<div class="m-1 p-3" id="display">
+<div class="row m-1 p-3" id="display">
 
 </div>
 <!--<footer class="row bg-yellow container text-center mx-auto" id="display2">-->
@@ -61,7 +61,7 @@
             $(`<div class="container text-center p-4 black">${copyright}</div>`).appendTo('#display2');
             for (let i = 0; i < data.data.results.length; i++) {
                 imageLink = `${data.data.results[i].thumbnail.path}/standard_fantastic.${data.data.results[i].thumbnail.extension}`;
-                $(`<div class="card p-3 col-4 float-left"><div class="media"><img class="mr-3" src="${imageLink}" alt="Generic placeholder image"><div class="media-body"><h3 class="mt-0">${data.data.results[i].name}</h3><span class="unhi">${data.data.results[i].description}</span></div></div></div>`).appendTo('#display');
+                $(`<div class="card p-3 col-lg-4 col-sm-12 float-left"><div class="media"><img class="mr-3" src="${imageLink}" alt="Generic placeholder image"><div class="media-body"><h3 class="mt-0">${data.data.results[i].name}</h3><span class="unhi">${data.data.results[i].description}</span></div></div></div>`).appendTo('#display');
             }
         });
         $(window).scroll(function(e) {
