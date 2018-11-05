@@ -8,7 +8,7 @@
     <title>Weather</title>
     <style type="text/css">
         .card{
-            transition: all 1s;
+            transition: all 1.5s;
 
         }
         #map-canvas {
@@ -17,17 +17,17 @@
         }
     </style>
 </head>
-<body class="container bg-aqua">
+<body class="container bg-white olive">
 <div>
     <h1>Weather Application</h1>
     <div id="cityName"></div>
     <div class="container text-right">
-        <button type="button" class="btn btn-outline-primary" id="reload">Reload</button>
-        <button type="button" class="btn btn-outline-primary" id="coord">Show Map</button>
-        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-outline-secondary" id="reload">Reload</button>
+        <button type="button" class="btn btn-outline-secondary" id="coord">Show Map</button>
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
             Custom Coordinates
         </button>
-        <button type="button" class="btn btn-outline-primary" id="details">City Details</button>
+        <button type="button" class="btn btn-outline-secondary" id="details">City Details</button>
     </div>
 </div>
 <div id="items" class="card bg-gray">
@@ -146,7 +146,7 @@
                         $('<div>Wind Speed: ' + data.wind.speed + '</div>').appendTo('#items');
                         $('<div>Wind Degree: ' + data.wind.deg + '</div>').appendTo('#items');
                         $('<div>Clouds: ' + data.clouds.all + '%</div>').appendTo('#items');
-                        $('<div class="card">Longitude: ' + data.coord.lon + '<br>Latitude: ' + data.coord.lat + '</div>').appendTo('#items');
+                        $('<div class="">Longitude: ' + data.coord.lon + '<br>Latitude: ' + data.coord.lat + '</div>').appendTo('#items');
                         $('<div>Humidity: ' + data.main.humidity + '</div>').appendTo('#items');
                         $('<div>Pressure: ' + data.main.pressure + '</div>').appendTo('#items');
                         $('<div>Current Temp: ' + data.main.temp + ' Degrees Fahrenheit</div>').appendTo('#items');
