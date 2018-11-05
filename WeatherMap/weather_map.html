@@ -127,7 +127,7 @@
         }
             function show(lat = 29.423017, long = -98.48527) {
                 $.get("http://api.openweathermap.org/data/2.5/weather", {
-                    APPID: localStorage.getItem("edda172e16941ed9b9d58bea06502ef3"),
+                    APPID: "edda172e16941ed9b9d58bea06502ef3",
                     lat: lat,
                     lon: long,
                     units: "imperial"
@@ -178,7 +178,7 @@
                     });
                 });
                 $.get("http://api.openweathermap.org/data/2.5/forecast", {
-                    APPID: localStorage.getItem("weatherapikey"),
+                    APPID: "edda172e16941ed9b9d58bea06502ef3",
                     lat: lat,
                     lon: long,
                     units: "imperial"
