@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather</title>
+    <style type="text/css">
+        .card{
+            transition: all 1s;
+
+        }
+        #map-canvas {
+            width: 100%;
+            height: 481px;
+        }
+    </style>
+</head>
+<body class="container bg-aqua">
+<div>
+    <h1>Weather Application</h1>
+    <div id="cityName"></div>
+    <div class="container text-right">
+        <button type="button" class="btn btn-outline-primary" id="reload">Reload</button>
+        <button type="button" class="btn btn-outline-primary" id="coord">Show Map</button>
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+            Custom Coordinates
+        </button>
+        <button type="button" class="btn btn-outline-primary" id="details">City Details</button>
+    </div>
+</div>
+<div id="items" class="card bg-gray">
+</div>
+<br>
+<div class="row text-center" id="allCards">
+    <div class="col card" id="card1">
+        <div id="card1-hi"></div>
+    </div>
+    <div class="col card" id="card2">
+        <div id="card2-hi"></div>
+    </div>
+    <div class="col card" id="card3">
+        <div id="card3-hi"></div>
+    </div>
+</div>
+<br>
+<div class="container">
+
+</div>
+<div class="row" id="map">
+    <div id="map-canvas"></div>
+</div>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Custom Coordinates</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Latitude</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="lat">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Longitude</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="lng">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="search">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key="></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    (function() {
+        "use strict";
+        var lat;
+        var long;
+        function maps(lat = 29.423017, long = -98.48527) {
+            var mapOptions = {
+                zoom: 5,
+                center: {
+                    lat: lat,
+                    lng: long
+                },
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            };
+            // Render the map
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+            var loc = {lat: lat, lng: long};
+            var marker = new google.maps.Marker({
+                position: loc,
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP
+            });
+            google.maps.event.addListener(marker, 'dragend', function() {
+               lat = marker.getPosition().lat();
+               long = marker.getPosition().lng();
+                $('.card').empty();
+                $('#cityName').empty();
+                show(lat, long);
+            });
+            function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }
+
+        }
+            function show(lat = 29.423017, long = -98.48527) {
+                $.get("http://api.openweathermap.org/data/2.5/weather", {
+                    APPID: localStorage.getItem("weatherapikey"),
+                    lat: lat,
+                    lon: long,
+                    units: "imperial"
+                }).done(function (data) {
+                    console.log(data);
+                    $('#items').hide();
+                    $(data).each(function (obj) {
+                        var info = [];
+                        $('<div>').appendTo('#items');
+                        $('<div>Country: ' + data.sys.country + '</div>').appendTo('#items');
+                        $('<div>City Name: ' + data.name + '</div>').appendTo('#items');
+                        $('<h3>City: ' + data.name + '</h3>').appendTo('#cityName');
+                        $('<div>ID: ' + data.id + '</div>').appendTo('#items');
+                        $('<div>Visibility: ' + data.visibility + '</div>').appendTo('#items');
+                        // console.log(data.weather[0].icon);
+                        $('<div>Wind Speed: ' + data.wind.speed + '</div>').appendTo('#items');
+                        $('<div>Wind Degree: ' + data.wind.deg + '</div>').appendTo('#items');
+                        $('<div>Clouds: ' + data.clouds.all + '%</div>').appendTo('#items');
+                        $('<div class="card">Longitude: ' + data.coord.lon + '<br>Latitude: ' + data.coord.lat + '</div>').appendTo('#items');
+                        $('<div>Humidity: ' + data.main.humidity + '</div>').appendTo('#items');
+                        $('<div>Pressure: ' + data.main.pressure + '</div>').appendTo('#items');
+                        $('<div>Current Temp: ' + data.main.temp + ' Degrees Fahrenheit</div>').appendTo('#items');
+                        $('<div class="text-center"><h3><strong>' + Math.round(data.main.temp_max) + '&#176/' + Math.round(data.main.temp_min) + '&#176</strong></h3></div>').appendTo('#card1');
+                        $('<div><strong>Current Temp: </strong>' + Math.round(data.main.temp) + '&#176</div>').appendTo('#card1'); //current temp
+                        $("<div><img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'></div>").appendTo("#card1");
+                        $('<div><strong>Clouds: </strong>' + data.clouds.all + '%</div>').appendTo('#card1');
+                        $('<div><strong>Humidity: </strong>' + data.main.humidity + '</div>').appendTo('#card1'); //humidity
+                        $('<div>Wind Speed: ' + data.wind.speed + '</div>').appendTo('#cards1');
+                        $('<div><strong>Pressure: </strong>' + data.main.pressure + '</div>').appendTo('#card1');
+                        $('<div>Max: ' + data.main.temp_max + '</div>').appendTo('#items');
+                        $('<div>Min: ' + data.main.temp_min + '</div>').appendTo('#items');
+                        $('<div>Message: ' + data.sys.message + '</div>').appendTo('#items');
+                        $('<div>Sunrise: ' + data.sys.sunrise + '</div>').appendTo('#items');
+                        $('<div>Sunset: ' + data.sys.sunset + '</div>').appendTo('#items');
+                        $('<div>Cod: ' + data.cod + '</div>').appendTo('#items');
+                        $('</div>').appendTo('#items');
+                        $(data.weather).each(function (label, obj) {
+                            info.push(obj);
+                        });
+                        var threeDay = [];
+                        $(info).each(function (label, obj) {
+                            // console.log(label + obj.main)
+                            threeDay.push(label);
+                            threeDay.push(obj.main);
+                            threeDay.push(obj.description);
+                            threeDay.push(obj.icon);
+                        });
+                    });
+                });
+                $.get("http://api.openweathermap.org/data/2.5/forecast", {
+                    APPID: localStorage.getItem("weatherapikey"),
+                    lat: lat,
+                    lon: long,
+                    units: "imperial"
+                }).done(function (data) {
+                    var days = [];
+                    var dayTwo = [];
+                    var wind = [];
+                    var pressure = [];
+                    var clouds = [];
+                    var dayThree = [];
+                    console.log(data);
+                    days.push(data.list);
+                    $(days).each(function (label, obj) {
+                        // console.log(label);
+                        $(obj).each(function (label, obj) {
+                            dayTwo.push(obj.weather[0].icon);
+                            dayTwo.push(obj.weather[0].main);
+                            dayTwo.push(obj.weather[0].description);
+                            dayTwo.push(obj.main.temp);
+                            dayTwo.push(obj.main.humidity);
+                            dayTwo.push(obj.main.temp_max);
+                            dayTwo.push(obj.main.temp_min);
+                            wind.push(obj.wind.speed);
+                            pressure.push(obj.main.pressure);
+                            clouds.push(obj.clouds.all);
+                        });
+                    });
+                    $('<div class="text-center"><h3><strong>' + Math.round(dayTwo[5]) + '&#176/' + Math.round(dayTwo[6]) + '&#176</strong></h3></div>').appendTo('#card2');
+                    $('<div class="text-center"><h3><strong>' + Math.round(dayTwo[54]) + '&#176/' + Math.round(dayTwo[55]) + '&#176</strong></h3></div>').appendTo('#card3');
+                    $("<div><img src='http://openweathermap.org/img/w/" + dayTwo[0] + ".png'></div>").appendTo("#card2");
+                    $("<div><img src='http://openweathermap.org/img/w/" + dayTwo[49] + ".png'></div>").appendTo("#card3");
+                    $('<div><strong>Clouds: </strong>' + clouds[0] + '%</div>').appendTo('#card2'); //clouds
+                    $('<div><strong>Clouds: </strong>' + clouds[7] + '%</div>').appendTo('#card3'); //clouds
+                    $('<div><strong>Humidity: </strong>' + dayTwo[4] + '</div>').appendTo('#card2'); //humidity
+                    $('<div><strong>Humidity: </strong>' + dayTwo[53] + '</div>').appendTo('#card3'); //humidity
+                    $('<div><strong>Wind Speed: </strong>' + wind[0] + '</div>').appendTo('#card2');
+                    $('<div><strong>Wind Speed: </strong>' + wind[7] + '</div>').appendTo('#card3');
+                    $('<div><strong>Pressure: </strong>' + pressure[0] + '</div>').appendTo('#card2');
+                    $('<div><strong>Pressure: </strong>' + pressure[7] + '</div>').appendTo('#card3');
+                });
+            };
+            // $(map).appendTo('#map-canvas');
+            $('#reload').click(function (e) {
+                window.location.reload(items);
+            });
+            $('#details').click(function (e) {
+                $('#items').slideToggle();
+            });
+            $('#coord').click(function (e) {
+                $('#map').slideToggle();
+            });
+
+            $('#search').click(function (e) {
+
+                lat = $("#lat").val();
+                long = $("#lng").val();
+
+                console.log(lat + long);
+                $('.card').empty();
+                $('#cityName').empty();
+                show(lat, long);
+                $('#map-canvas').empty();
+                maps(lat, long);
+            });
+
+        maps(lat, long);
+        show(lat, long);
+    })();
+</script>
+<link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
