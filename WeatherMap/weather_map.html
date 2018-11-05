@@ -126,7 +126,7 @@
 
         }
             function show(lat = 29.423017, long = -98.48527) {
-                $.get("http://api.openweathermap.org/data/2.5/weather", {
+                $.get("https://api.openweathermap.org/data/2.5/weather", {
                     APPID: "edda172e16941ed9b9d58bea06502ef3",
                     lat: lat,
                     lon: long,
@@ -177,7 +177,7 @@
                         });
                     });
                 });
-                $.get("http://api.openweathermap.org/data/2.5/forecast", {
+                $.get("https://api.openweathermap.org/data/2.5/forecast", {
                     APPID: "edda172e16941ed9b9d58bea06502ef3",
                     lat: lat,
                     lon: long,
