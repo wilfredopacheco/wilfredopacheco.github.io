@@ -14,14 +14,14 @@
 </head>
 <body class="container phm whte navy">
 <ul class="nav row display-4 p-4">
+    <!--<li class="nav-item">-->
+        <!--<a class="nav-link" href="#"><i class="fas fa-home navy"></i><span class="sr-only">(current)</span></a>-->
+    <!--</li>-->
     <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-home navy"></i><span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="https://github.com/wilfredopacheco?tab=repositories"><img src="https://img.icons8.com/ios/50/000000/github-filled.png"></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="https://github.com/wilfredopacheco?tab=repositories"><i class="fab fa-github-square navy"></i></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="https://www.linkedin.com/in/wilfredo-pacheco-54b70a170/"><i class="fab fa-linkedin navy"></i></a>
+        <a class="nav-link disabled" href="https://www.linkedin.com/in/wilfredo-pacheco-54b70a170/"><img src="https://img.icons8.com/ios/50/000000/linkedin-filled.png"></a>
     </li>
     <li class="nav-item dropdown my-auto">
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -34,7 +34,7 @@
             <!--<a class="dropdown-item" href="#">Something else here</a>-->
         </div>
         <a class="nav-link dropdown-toggle mi" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mi"><\Projects></span>
+            <span class="small"><\Projects></span>
         </a>
     </li>
     <!--<li class="nav-item text-center">-->
@@ -45,7 +45,7 @@
     <!--</li>-->
 </ul>
 <div class="row">
-    <div class="whte justify-content-center">
+    <div class="whte justify-content-center mb-4">
         <div class="card bg-transparent col float-right p-4" id="card1">
             <img src="./img/WilfredoPacheco2.jpeg" alt="image" class="border border-white rounded-circle float-left" id="profile">
             <div class=" bg-transparent col-12 whte float-left text-right" id="me">
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="card d-sm-none d-lg-block bg-transparent container-fluid col ml-4 float-right p-4">
+    <div class="card d-sm-none d-lg-block bg-transparent container-fluid col ml-md-4 float-right p-4">
         <div class="display-4">About Me</div>
         I am an ambitious individual with a passion for technology and creating new things. Software development gives me an opportunity to be creative, while challenging myself to use my analytical skills to solve problems in a regular changing environment. I am committed to continually learning and hope to one day leave my mark in the tech industry.
     </div>
@@ -70,13 +70,25 @@
 
     </div>
 </div>
+<div class="row mt-4">
+    <div class="card col-12 bg-transparent d-flex justify-content-center mt-4" id="skils">
+        <div class="mb-2"><h3>Technical Skills:</h3></div>
+        <div class="p-2">
+            <img src="https://img.icons8.com/ios/50/000000/java-coffee-cup-logo.png">
+            <img src="https://img.icons8.com/ios/50/000000/html-5-filled.png">
+            <img src="https://img.icons8.com/ios/50/000000/git-filled.png">
+            <img src="https://img.icons8.com/ios/50/000000/javascript-filled.png">
+            <img src="https://img.icons8.com/ios/50/000000/mysql-logo-filled.png">
+            <img src="https://img.icons8.com/ios/50/000000/jquery-filled.png">
+        </div>
+    </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 (function (){
     "use strict";
     $(document).ready(function () {
-        $('#card1, #profile').hide().fadeIn(1000)
+        $('#card1, #profile, #skills).hide().fadeIn(1000)
         $('#me').hide().fadeIn(1800)
     });
 })();
