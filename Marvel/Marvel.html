@@ -63,7 +63,7 @@
         function getCharInfo(offset){
             let details = `ts=1&apikey=${publicKey}&hash=9278b5819c79b05b1e8288104e113f32${limit}${offset}`;
             $.get({
-                url: `http://gateway.marvel.com/v1/public/characters?${details}`,
+                url: `https://gateway.marvel.com/v1/public/characters?${details}`,
                 type: "GET",
                 Params: {
                     "apikey": publicKey,
