@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js"></script>
+    <title>Document</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/office/30/000000/iron-man.png" type="image/x-icon"/>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab|Zilla+Slab+Highlight" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Zilla Slab Highlight', cursive;
+            transition: all .5s;
+        }
+        .prof {
+            box-shadow: 10px 10px 5px grey;
+        }
+        .unhi {
+            font-family: 'Zilla Slab', serif;
+        }
+        .card{
+            height: 400px;
+        }
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="uk-background-muted uk-container uk-container-large">
+<header>
+    <div class="uk-heading-hero">MARVEL<span class="pt-4 unhi">Characters</span></div>
+</header>
+<div class="uk-float-right uk-position-center" id="spinner"><span class="uk-position-z-index" uk-spinner="ratio: 4.5"></span></div>
+<div>
+    <div uk-filter="target: .js-filter">
+        <ul class="js-filter uk-child-width-1-2 uk-child-width-1-3@m uk-text-center" uk-grid="masonry: true" id="display"></ul>
+    </div>
+</div>
+<footer id="display2"><div><a href="#" uk-totop uk-scroll><span class="unhi">Back to top </span></a></div></footer>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script>
+    (function () {
+        let count = 0;
+        let imageLink;
+        const limit = "&limit=50";
+        const publicKey = "fe4d001d953344e520704d034e73c4da";
+
+        function getCharInfo(offset){
+            let details = `ts=1&apikey=${publicKey}&hash=9278b5819c79b05b1e8288104e113f32${limit}${offset}`;
+            $.get({
+                url: `http://gateway.marvel.com/v1/public/characters?${details}`,
+                type: "GET",
+                Params: {
+                    "apikey": publicKey,
+                    "ts": "ts",
+                    "hash": "9278b5819c79b05b1e8288104e113f32"
+                },
+                Headers: {
+                    Accept: '*/*'
+                }
+            }).done(function(data) {
+                console.log(data);
+                let copyright = data.attributionHTML;
+                let copyright2 = data.attributionText;
+                offset = data.offset;
+                if (count < 50){
+                    $(`<span class="container black mt-0 unhi">${copyright2}</span>`).appendTo('header');
+                    $(`<div class="container text-center p-4 black">${copyright}</div>`).appendTo('#display2');
+                }
+                for (let i = 0; i < data.data.results.length; i++) {
+                    if (`${data.data.results[i].description}` === ""){
+                        imageLink = `${data.data.results[i].thumbnail.path}/standard_amazing.${data.data.results[i].thumbnail.extension}`;
+                        $(`<li data-color="black" data-size="small" id="${data.data.results[i].id}"><div class="uk-card uk-card-default uk-box-shadow-xlarge uk-box-shadow-hover-medium uk-padding"><div class="uk-card-media-top"><img class="mr-3" src="${imageLink}" alt="Generic placeholder image"><div class=""><h2 class="unhi">${data.data.results[i].name}</h2></div><input type="hidden" value="${data.data.results[i].id}"></div></div></li>`).appendTo('#display');
+                    } else {
+                        imageLink = `${data.data.results[i].thumbnail.path}/standard_amazing.${data.data.results[i].thumbnail.extension}`;
+                        $(`<li data-color="white" data-size="medium" id="${data.data.results[i].id}"><div class="uk-card uk-card-secondary uk-box-shadow-xlarge uk-box-shadow-hover-medium uk-padding"><img class="mr-3" src="${imageLink}" alt="Generic placeholder image"><div class=""><h2 class="unhi">${data.data.results[i].name}</h2><div class="unhi">${data.data.results[i].description}<input type="hidden" value="${data.data.results[i].id}"></div></div></div></li>`).appendTo('#display');
+                    }
+                }
+                $('#spinner').fadeOut(1500);
+            });
+        }
+        getCharInfo("&offset=" + count);
+        $(window).scroll(function(e) {
+            if($(window).scrollTop() + $(window).height() === $(document).height()) {
+                $('#spinner').fadeIn();
+                count += 50;
+                getCharInfo("&offset=" + count);
+            }});
+
+    })();
+</script>
+</body>
+</html>
