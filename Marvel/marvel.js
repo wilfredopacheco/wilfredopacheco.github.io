@@ -1,5 +1,5 @@
 const publicKey = 'fe4d001d953344e520704d034e73c4da';
-const url = 'http://gateway.marvel.com/v1/public/characters';
+const url = 'https://gateway.marvel.com/v1/public/characters';
 const hash = '9278b5819c79b05b1e8288104e113f32'
 
 let imageLink;
