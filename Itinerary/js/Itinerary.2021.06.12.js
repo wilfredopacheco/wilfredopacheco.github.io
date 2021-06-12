@@ -37,7 +37,7 @@ function init(){
         }, {
             EventDate: 'Wednesday June 16',
             Title: 'lake or whatever you want day',
-            Breakfast: 'chicken and ?',
+            Breakfast: 'chicken and waffles',
             Lunch: 'on own',
             Dinner: 'Lemon chicken, wontons, rice, egg drop soup'
         }, {
