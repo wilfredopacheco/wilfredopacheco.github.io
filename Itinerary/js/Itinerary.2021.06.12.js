@@ -53,12 +53,11 @@ function init(){
     ]
     
     const OTHER = `
-    * there will be sandwich stuff and ramen for anyone 
+    * there will be sandwich stuff and ramen for anyone <br>
     * Bring your drinks and snacks 
     `
     document.body.style.backgroundImage = `url(${ImageLink})`
     document.body.style.backgroundSize = 'cover'
-    // $(document.body).attr('style', `background-image: ${ImageLink}`)
     
     $(MainElement).addClass('p-5')
     .addClass('m-5')
@@ -79,12 +78,14 @@ function init(){
             Lunch,
             Dinner,
             Notes,
+            EndDate
         } = day;
 
         const zero = index < 10 ? 0 : ''
+        const EndDateNumber = Number(EndDate.toJSON().split('T')[0].split('-').join(''))
 
-        $(MainElement).append(`<!-- Cards -->
-        <div class="card mb-2" style="background-color: ${Colors[index]};">
+        const $Card = $(MainElement).append(`<!-- Cards -->
+        <div class="card card-info mb-2" style="background-color: ${Colors[index]};">
             <div class="card-body">
                 <div class="row">
 
@@ -92,8 +93,8 @@ function init(){
                         <div class="row">
                             
                             <div class="text-center">
-                                <h2 class="text-black">DAY:<br>
-                                    <b>${zero.toString()}${index +1}</b>
+                                <h2 class="text-black end-date-${EndDateNumber}">DAY:<br>
+                                    <b class="end-date-${EndDateNumber}">${zero.toString()}${index +1}</b>
                                 </h2>
                             </div>
 
@@ -103,16 +104,24 @@ function init(){
                     </div>
 
                     <div class="col-10 text-white">
-                        <div>${EventDate}</div>
-                        <div>${Title}</div>
-                        <div>${Breakfast ? '<b>Breakfast: </b>' + Breakfast.toUpperCase() : ''}</div>
-                        <div>${Lunch ? '<b>Lunch: </b>' + Lunch.toUpperCase() : ''}</div>
-                        <div>${Dinner ? '<b>Dinner: </b>' + Dinner.toUpperCase() : ''}</div>
-                        <div>${Notes ? '<b>Notes: </b>' + Notes.toUpperCase() : ''}</div>
+                        <div class="end-date-${EndDateNumber}">${EventDate}</div>
+                        <div class="end-date-${EndDateNumber}">${Title}</div>
+                        <div class="end-date-${EndDateNumber}">${Breakfast ? '<b>Breakfast: </b>' + Breakfast.toUpperCase() : ''}</div>
+                        <div class="end-date-${EndDateNumber}">${Lunch ? '<b>Lunch: </b>' + Lunch.toUpperCase() : ''}</div>
+                        <div class="end-date-${EndDateNumber}">${Dinner ? '<b>Dinner: </b>' + Dinner.toUpperCase() : ''}</div>
+                        <div class="end-date-${EndDateNumber}">${Notes ? '<b>Notes: </b>' + Notes.toUpperCase() : ''}</div>
                     </div>
                 </div>
             </div>
         </div>`)
+
+        setTimeout(() => {
+            if ( EndDate === new Date() ){
+                Array.from(document.querySelectorAll(`.end-date-${EndDateNumber}`)).forEach(el => {
+                    $(el).attr('style', 'text-decoration: line-through;')
+                })
+            }
+        }, index *1000)
     })
 
     // TODO: Add NOTES/OTHER;
