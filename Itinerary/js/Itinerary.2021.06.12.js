@@ -67,6 +67,9 @@ function init(){
     $(MainElement).append(`<!-- Title -->
     <div class="col-12 display-4 mb-3 text-white"
         >${Title}
+    </div>
+    <div class="text-white">
+        ${OTHER}
     </div>`)
 
     TripDetails.forEach(function(day, index){
@@ -123,8 +126,6 @@ function init(){
             }
         }, index *1000)
     })
-
-    // TODO: Add NOTES/OTHER;
 }
 
 window.onload = init;
