@@ -19,19 +19,19 @@ function init(){
     const TripDetails = [
         {
             EventDate: 'Sunday June 13',
-            EndDate: new Date(2021, 06, 14),
+            EndDate: new Date(2021, 05, 14),
             Title: 'Arrive | Check in @ 4',
             Dinner: '🍔 🍟'
         }, {
             EventDate: 'Monday June 14',
-            EndDate: new Date(2021, 06, 15),
+            EndDate: new Date(2021, 05, 15),
             Title: 'Lake Day',
             Breakfast: 'carne guisada tacos',
             Lunch: 'on own',
             Dinner: '🍝 🥗 '
         }, {
             EventDate: 'Tuesday June 15',
-            EndDate: new Date(2021, 06, 16),
+            EndDate: new Date(2021, 05, 16),
             Title: 'Magnolia girls day Trip',
             Breakfast: 'muffins and fruit',
             Lunch: 'on own',
@@ -39,14 +39,14 @@ function init(){
             Notes: 'pick up nuggets for next day'
         }, {
             EventDate: 'Wednesday June 16',
-            EndDate: new Date(2021, 06, 17),
+            EndDate: new Date(2021, 05, 17),
             Title: 'lake or whatever you want day',
             Breakfast: 'chicken and waffles',
             Lunch: 'on own',
             Dinner: 'Lemon chicken, wontons, rice, egg drop soup'
         }, {
             EventDate: 'Thursday June 16',
-            EndDate: new Date(2021, 06, 18),
+            EndDate: new Date(2021, 05, 18),
             Title: 'Departure | checkout @ 11',
             Breakfast: 'together @ waffle street'
         }    
