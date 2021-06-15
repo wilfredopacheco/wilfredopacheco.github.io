@@ -119,6 +119,9 @@ function init(){
         </div>`)
 
         setTimeout(() => {
+            console.info(EndDate)
+            console.info(new Date())
+            console.info(EndDate < new Date())
             if ( EndDate < new Date() ){
                 Array.from(document.querySelectorAll(`.end-date-${EndDateNumber}`)).forEach(el => {
                     $(el).attr('style', 'text-decoration: line-through;')
