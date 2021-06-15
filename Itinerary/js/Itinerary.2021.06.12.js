@@ -127,7 +127,7 @@ function init(){
                     $(el).attr('style', 'text-decoration: line-through;')
                 })
             }
-        }, index *2000)
+        }, index *3000)
     })
 }
 
